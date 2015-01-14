@@ -91,13 +91,13 @@ public class MyModel implements Model {
     private GraphDomain createWeightLessGraph() {
         WeightLessGraphDomain weightLessGraphDomain = new WeightLessGraphDomain();
         ArrayList<Node> nodes = new ArrayList<Node>();
-        int numberOfNodes = Utils.getRandom(50);
+        int numberOfNodes = Utils.getRandom(30);
         for (int i = 0; i < numberOfNodes; i++) {
             Node node = new Node("node" + i);
             nodes.add(node);
             weightLessGraphDomain.addNode(node);
         }
-        int numberOfEdges = numberOfNodes * 10;
+        int numberOfEdges = numberOfNodes * 3;
         for (int i = 0; i < numberOfEdges; i++) {
             int node1Index = -1;
             int node2Index = -1;
@@ -126,13 +126,13 @@ public class MyModel implements Model {
     private GraphDomain createWeightedGraph() {
         WeightGraphDomain weightGraphDomain = new WeightGraphDomain();
         ArrayList<Node> nodes = new ArrayList<Node>();
-        int numberOfNodes = Utils.getRandom(50);
+        int numberOfNodes = Utils.getRandom(30);
         for (int i = 0; i < numberOfNodes; i++) {
             Node node = new Node("node" + i);
             nodes.add(node);
             weightGraphDomain.addNode(node);
         }
-        int numberOfEdges = numberOfNodes * 10;
+        int numberOfEdges = numberOfNodes * 2;
         for (int i = 0; i < numberOfEdges; i++) {
             int node1Index = -1;
             int node2Index = -1;
