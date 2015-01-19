@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MyTCPIPServer {
-    private final static String FILE = "e://properties.txt";
+    private final static String FILE = "properties.txt";
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("createXml")) {
             try {

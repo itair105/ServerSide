@@ -47,12 +47,14 @@ public class MyModel implements Model {
     @Override
     public void solveDomain() {
         long time = System.currentTimeMillis();
-        String hashCode = String.valueOf(domain.hashCode());
-        if (solutionMap.containsKey(hashCode)) {
-            solution = solutionMap.get(hashCode);
+
+        int hash = domain.hashCode() + searcher.getClass().getSimpleName().hashCode();
+        String hashStr = String.valueOf(hash);
+        if (solutionMap.containsKey(hashStr)) {
+            solution = solutionMap.get(hashStr);
         } else {
-            solution = new Solution(searcher.search(), hashCode);
-            solutionMap.put(hashCode, solution);
+            solution = new Solution(searcher.search(), hashStr);
+            solutionMap.put(hashStr, solution);
         }
 
         long time2 = System.currentTimeMillis();
@@ -91,7 +93,7 @@ public class MyModel implements Model {
     private GraphDomain createWeightLessGraph() {
         WeightLessGraphDomain weightLessGraphDomain = new WeightLessGraphDomain();
         ArrayList<Node> nodes = new ArrayList<Node>();
-        int numberOfNodes = Utils.getRandom(30);
+        int numberOfNodes = Utils.getRandom(15) + 2;
         for (int i = 0; i < numberOfNodes; i++) {
             Node node = new Node("node" + i);
             nodes.add(node);
@@ -113,7 +115,10 @@ public class MyModel implements Model {
         }
 
         int startNodeIndex = Utils.getRandom(numberOfNodes) - 1;
-        int endNodeIndex = Utils.getRandom(numberOfNodes) - 1;
+        int endNodeIndex = startNodeIndex;
+        while (startNodeIndex == endNodeIndex) {
+            endNodeIndex = Utils.getRandom(numberOfNodes) - 1;
+        }
         Node start = nodes.get(startNodeIndex);
         Node end = nodes.get(endNodeIndex);
 
@@ -126,7 +131,7 @@ public class MyModel implements Model {
     private GraphDomain createWeightedGraph() {
         WeightGraphDomain weightGraphDomain = new WeightGraphDomain();
         ArrayList<Node> nodes = new ArrayList<Node>();
-        int numberOfNodes = Utils.getRandom(30);
+        int numberOfNodes = Utils.getRandom(15) + 2;
         for (int i = 0; i < numberOfNodes; i++) {
             Node node = new Node("node" + i);
             nodes.add(node);
@@ -146,10 +151,14 @@ public class MyModel implements Model {
                 weightGraphDomain.addEdge(edge);
             }
         }
-            int startNodeIndex = Utils.getRandom(numberOfNodes) - 1;
-            int endNodeIndex = Utils.getRandom(numberOfNodes) - 1;
-            Node start = nodes.get(startNodeIndex);
-            Node end = nodes.get(endNodeIndex);
+        int startNodeIndex = Utils.getRandom(numberOfNodes) - 1;
+        int endNodeIndex = startNodeIndex;
+        while (endNodeIndex == startNodeIndex) {
+            endNodeIndex = Utils.getRandom(numberOfNodes) - 1;
+        }
+
+        Node start = nodes.get(startNodeIndex);
+        Node end = nodes.get(endNodeIndex);
 
             weightGraphDomain.setStartNode(start);
             weightGraphDomain.setEndNode(end);
